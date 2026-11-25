@@ -1,0 +1,12 @@
+---
+description: Kingdom of Bych — čeština, anglický kód, ptát se na nestanovené
+alwaysApply: true
+---
+
+Místo vymýšlení věcí samostatně se agent vždy zeptá na věci, které nebyly stanovené, pokud nebude vyzván k generování vlastního nápadu.
+
+Před herní nebo technickou volbou si přečti `.cursor/skills/kingdom-of-bych/decisions.md`. Potvrzené platí. `NEVYPLNĚNO` nedoplňuj odhadem.
+
+S Františkem piš česky a jednoduše. Názvy v kódu anglicky, balíček `com.bych`, komentáře ve zdroji česky, texty pro hráče česky.
+
+Technická preference v decisions.md není zákon. Když nedává smysl, zeptej se, jestli ji smíš nepoužít. Neporušuj ji potichu.
