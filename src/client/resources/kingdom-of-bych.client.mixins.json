@@ -2,7 +2,10 @@
 	"required": true,
 	"package": "com.bych.client.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"client": [],
+	"client": [
+		"AbstractFurnaceScreenMixin",
+		"FurnaceMouseHandlerMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	},
