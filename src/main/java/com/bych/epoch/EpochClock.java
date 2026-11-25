@@ -19,6 +19,20 @@ public final class EpochClock {
 		return this.dayFromDayTime(overworld.getDayTime());
 	}
 
+	/**
+	 * Stejný výpočet dne jako u světa, ale z holého denního času.
+	 * Klient ho potřebuje u pece, protože nemá ServerLevel.
+	 */
+	public int dayFromDayTime(long dayTime) {
+		// Začátek hodin. Ve fázi 1 je to nula, tedy založení světa.
+		long clockStartDayTime = 0L;
+		long elapsed = dayTime - clockStartDayTime;
+		if (elapsed < 0L) {
+			elapsed = 0L;
+		}
+		return (int) (elapsed / TICKS_PER_DAY) + 1;
+	}
+
 	public void applyDay(ServerLevel overworld, int day) {
 		overworld.setDayTime(this.dayTimeForDay(day));
 	}
@@ -34,14 +48,9 @@ public final class EpochClock {
 		return Epoch.STONE;
 	}
 
-	private int dayFromDayTime(long dayTime) {
-		// Začátek hodin. Ve fázi 1 je to nula, tedy založení světa.
-		long clockStartDayTime = 0L;
-		long elapsed = dayTime - clockStartDayTime;
-		if (elapsed < 0L) {
-			elapsed = 0L;
-		}
-		return (int) (elapsed / TICKS_PER_DAY) + 1;
+	/** Klient i server: doba přímo z denního času světa. */
+	public Epoch epochForDayTime(long dayTime, BychConfig config) {
+		return this.epochForDay(this.dayFromDayTime(dayTime), config);
 	}
 
 	private long dayTimeForDay(int day) {

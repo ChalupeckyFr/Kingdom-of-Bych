@@ -66,7 +66,7 @@ Povolené výjimky:
 - křesadlo
 - trident, když ho hráč najde (smí ho použít)
 
-Když hráč pec přesto získá, nesmí ji normálně použít. V jejím okně se mění citlivost myši a klik dopadne jinam, takže pec nejde ovládat. Tohle nenahrazuj jen hláškou v chatu, dokud se nezeptáš.
+Když hráč pec v době kamenné otevře (pec, tavicí pec, udírna), v okně se mění citlivost myši a klik dopadne jinam. Nestačí jen chat. Ohniště se neblokuje. Minihra je hotová.
 
 Obecné pravidlo od Františka: pokročilejší věci se necraftí ani nepoužívají. Konkrétní věc, která není v seznamu zákazů ani výjimek, je `NEVYPLNĚNO`. Před přidáním dalšího zákazu se zeptej. Nezařazuj tam sám lodě, luky, štíty a podobně.
 

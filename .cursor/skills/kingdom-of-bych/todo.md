@@ -23,12 +23,11 @@ Epochy, oznámení, playtime, bronz, vesnice a autobus se nezačínají, dokud F
 - [x] Noc aktuálního dne příkazem `kbych night`
 - [x] Příkazy do skupin: `/kbych time …`, `/kbych test reset`, `/kbych config reload` (staré krátké tvary zůstaly)
 - [x] Lobby: world border asi 32 bloků od středu a `/kbych game depart` (hláška Odlet!, uvolnění borderu, den 1). Let autobusu ještě není.
+- [x] Minihra s pecí v době kamenné: citlivost myši a klik vedle; ohniště neblokované
 
 ## Připraveno, smí se začít
 
-### 1. Minihra s pecí v době kamenné
-
-Už je rozhodnuté. Když hráč v době kamenné pec otevře, v okně se mění citlivost myši a klik dopadne jinam. Nestačí jen věta v chatu. Ohniště se neblokuje. Po změně napsat, jak to vyzkoušet.
+Zatím nic dalšího. Návrhy níž se neprogramují, dokud František nevybere.
 
 ## Návrhy, nezačínat v kódu
 
