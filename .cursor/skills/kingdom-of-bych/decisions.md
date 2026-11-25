@@ -115,7 +115,8 @@ Potvrzeno:
 Potvrzeno:
 
 - World border v lobby je malý, asi 32 bloků od středu.
-- Odlet spustí hráč s oprávněním, příkazem.
+- Odlet spustí hráč s oprávněním, příkazem `/kbych game depart`.
+- Zatím příkaz jen napíše „Odlet!“, uvolní lobby border a nastaví den 1. Let autobusu ještě není.
 - Autobus má působit středně rychle, ať cesta netrvá věčnost a není to jen prohlídka.
 - Autobus kreslit jako plynulé bloky na jedné řídící entitě.
 

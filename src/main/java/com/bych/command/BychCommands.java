@@ -2,6 +2,7 @@ package com.bych.command;
 
 import com.bych.BychRuntime;
 import com.bych.KingdomOfBych;
+import com.bych.game.Lobby;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 
@@ -17,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
  * /kbych reload znovu přečte ovládací soubor, hra se kvůli tomu nemusí zavírat.
  * /kbych status řekne den a dobu.
  * /kbych setday skočí na daný den, aby se epochy daly zkusit bez čekání.
+ * /kbych game depart ohlásí odlet a nastaví den 1. Let autobusu přijde později.
  */
 public final class BychCommands {
 	private BychCommands() {
@@ -30,8 +32,19 @@ public final class BychCommands {
 						.then(Commands.literal("status").executes(BychCommands::status))
 						.then(Commands.literal("setday")
 								.then(Commands.argument("day", IntegerArgumentType.integer(1))
-										.executes(BychCommands::setDay))))
+										.executes(BychCommands::setDay)))
+						.then(Commands.literal("game")
+								.then(Commands.literal("depart").executes(BychCommands::depart))))
 		);
+	}
+
+	private static int depart(com.mojang.brigadier.context.CommandContext<CommandSourceStack> context) {
+		Lobby.depart(context.getSource().getServer());
+		// Hráči už vidí „Odlet!“ a den 1. Konzole hráč není, proto jí to řekneme zvlášť.
+		if (context.getSource().getEntity() == null) {
+			context.getSource().sendSuccess(() -> Component.literal("Odlet spuštěn."), false);
+		}
+		return Command.SINGLE_SUCCESS;
 	}
 
 	private static int reload(com.mojang.brigadier.context.CommandContext<CommandSourceStack> context) {
