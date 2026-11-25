@@ -2,6 +2,7 @@ package com.bych;
 
 import com.bych.command.BychCommands;
 import com.bych.config.BychConfig;
+import com.bych.game.Lobby;
 import com.bych.sleep.SleepTracker;
 
 import net.fabricmc.api.ModInitializer;
@@ -27,6 +28,7 @@ public class KingdomOfBych implements ModInitializer {
 		LOGGER.info(config.summary().getString());
 
 		BychCommands.register();
+		Lobby.register();
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> BychRuntime.get().applySleepRule(server));
 		ServerLifecycleEvents.SERVER_STOPPED.register(server -> BychRuntime.get().clearSleepers());

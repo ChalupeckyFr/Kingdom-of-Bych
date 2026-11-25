@@ -3,6 +3,7 @@ package com.bych.command;
 import com.bych.BychRuntime;
 import com.bych.KingdomOfBych;
 import com.bych.epoch.EpochClock;
+import com.bych.game.Lobby;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 
@@ -18,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * Zkušební příkazy. Vyžadují cheaty, tedy oprávnění 2.
- * Skupiny: time (status, setday, night), test (reset), config (reload).
+ * Skupiny: time (status, setday, night), test (reset), config (reload), game (depart).
  * Staré krátké tvary (/kbych status, setday, night, reset, reload) zůstávají
  * kvůli command blokům ve světě.
  */
@@ -41,6 +42,8 @@ public final class BychCommands {
 								.then(Commands.literal("reset").executes(BychCommands::reset)))
 						.then(Commands.literal("config")
 								.then(Commands.literal("reload").executes(BychCommands::reload)))
+						.then(Commands.literal("game")
+								.then(Commands.literal("depart").executes(BychCommands::depart)))
 						// Staré krátké tvary — command bloky ve světě dál fungují
 						.then(Commands.literal("reload").executes(BychCommands::reload))
 						.then(Commands.literal("status").executes(BychCommands::status))
@@ -50,6 +53,15 @@ public final class BychCommands {
 						.then(Commands.literal("reset").executes(BychCommands::reset))
 						.then(Commands.literal("night").executes(BychCommands::night)))
 		);
+	}
+
+	private static int depart(com.mojang.brigadier.context.CommandContext<CommandSourceStack> context) {
+		Lobby.depart(context.getSource().getServer());
+		// Hráči už vidí „Odlet!“ a den 1. Konzole hráč není, proto jí to řekneme zvlášť.
+		if (context.getSource().getEntity() == null) {
+			context.getSource().sendSuccess(() -> Component.literal("Odlet spuštěn."), false);
+		}
+		return Command.SINGLE_SUCCESS;
 	}
 
 	private static int reload(com.mojang.brigadier.context.CommandContext<CommandSourceStack> context) {
