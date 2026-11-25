@@ -6,4 +6,4 @@ For setup instructions, please see the [Fabric Documentation page](https://docs.
 
 ## License
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Kingdom of Bych is licensed under the BSD 3-Clause License. See [LICENSE](LICENSE).
