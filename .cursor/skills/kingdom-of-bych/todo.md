@@ -27,31 +27,26 @@ Epochy, oznámení, playtime, bronz, vesnice a autobus se nezačínají, dokud F
 
 ## Připraveno, smí se začít
 
-Zatím nic dalšího. Návrhy níž se neprogramují, dokud František nevybere.
+Nic, dokud František neřekne minuty a odměnu u odehraného času (viz Epochy v `decisions.md`).
+
+Pořadí po odpovědi:
+
+1. Nové hodiny (odehraný čas + achievementy)
+2. Loading screen + hezčí oznámení
 
 ## Návrhy, nezačínat v kódu
 
-František vybere jednu možnost. Do `decisions.md` se zapíše až jeho věta.
+### Oznámení doby
 
-### Oznámení doby, vybrat jednu cestu
-
-Dnes doba naskočí podle dne světa a do chatu přijde jedna věta.
-
-- **A. Nechat dny.** Jen zkrášlit oznámení: velký nápis, zvuk, krátká odměna. Délky dob se nemění.
-- **B. Přejít na odehraný čas a achievementy.** Návrh z zkoušky: asi 10 minut hry bronz, dalších 20 minut železo. Achievement má zvuk a odměnu. Přesné minuty a odměna jsou pořád **čeká**, dokud je František neřekne. Tahle cesta zruší počítání podle dne, proto se nesmí míchat s úkolem lobby ani s načítací obrazovkou, dokud není vybraná.
-
-Načítací obrazovka při změně doby je rozhodnutá, ale čeká na tuhle volbu. Jinak by se napojila na hodiny, které se možná změní.
+Vybráno **B** (odehraný čas + achievementy). Zapsáno v `decisions.md`. Minuty a odměna ještě **čeká**.
 
 ### Bronz jako věc ve hře
 
-Směr je rozhodnutý: zbroj jako železo, skoro bez zpomalení, ostatní zbroj hráče zpomaluje, rudy mají být vzácné. Než se to programuje, František doplní:
+Většina je v `decisions.md` (poměr 4+1, rudy, věci z bronzu, tavící pec). Než se to programuje, František ještě doplní:
 
-- jak se bronz vyrábí, pec a poměr mědi a cínu
-- kde a jak často je cín
-- o kolik která zbroj zpomaluje
-- jak velké jsou žíly
-
-Nápad s mapou nebo s nástrojem Chunky není vybrané řešení.
+- jak přesně vypadá a funguje tavící pec
+- přesná čísla zpomalení zbroje
+- přesné vlastnosti malého lehkého štítu
 
 ### Obsazení vesnice
 

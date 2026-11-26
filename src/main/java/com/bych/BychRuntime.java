@@ -3,6 +3,7 @@ package com.bych;
 import com.bych.config.BychConfig;
 import com.bych.epoch.EpochAnnouncer;
 import com.bych.epoch.EpochClock;
+import com.bych.epoch.StoneAgeRestrictions;
 import com.bych.sleep.SleepGate;
 import com.bych.sleep.SleepTracker;
 
@@ -65,6 +66,9 @@ public final class BychRuntime {
 	public void onWorldTick(ServerLevel level) {
 		if (level.dimension() == Level.OVERWORLD) {
 			this.announcer.onOverworldTick(level.getServer());
+			for (var player : level.players()) {
+				StoneAgeRestrictions.stripForbiddenArmor(player);
+			}
 		}
 	}
 

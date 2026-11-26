@@ -26,16 +26,29 @@ Technické preference použij. Když v praxi nedávají smysl, zeptej se, jestli
 - Chat a okna pro hráče česky.
 - Fungující kód nemazat bez souhlasu.
 
+## Příkazy
+
+Potvrzeno:
+
+- Příkazy jsou ve skupinách: `/kbych time status`, `/kbych time setday <den>`, `/kbych time night`, `/kbych test reset`, `/kbych config reload`, `/kbych game depart`.
+- Staré krátké tvary (`/kbych status`, `setday`, `night`, `reset`, `reload`) zůstávají kvůli command blokům.
+
 ## Epochy
 
 Potvrzeno:
 
-- Den 1 je doba kamenná.
-- Dny 2, 3 a 4 jsou doba bronzová.
-- Od dne 5 trvale doba železná.
+- Doby se přepínají podle **odehraného času** a **achievementů**, ne podle dne světa. (Staré dny 1 / 2–4 / od 5 už neplatí.)
+- Achievement při přechodu má zvuk a odměnu.
 - Středověk není světová epocha. Patří jednomu hráči a ve fázi 1 se nepočítá.
 - Ve fázi 1 čas běží od založení světa. Výpočet má být na jednom místě. Až bude autobus, stejné místo se přepne na odlet. Do té doby to nepřepínat.
 - Při přechodu na další dobu je vždy vlastní loading screen, aby se svět stihl načíst a hra se nezasekla. Platí i pro odemčení středověku jednomu hráči. Když to pro jednoho hráče technicky nepůjde, zeptej se, než to nahradíš jinak.
+- Pořadí práce: nejdřív nové hodiny (odehraný čas), potom loading screen a hezčí oznámení.
+
+`NEVYPLNĚNO` — zeptej se před kódem hodin:
+
+- po kolika minutách odehraného času přijde bronz a po kolika železo (návrh byl asi 10 a +20, nepotvrzeno)
+- co přesně je odměna u achievementu
+- jestli se odehraný čas počítá jen když je hráč ve světě / online, nebo i jinak
 
 ## Spánek
 
@@ -46,27 +59,20 @@ Potvrzeno. Noc se přeskočí, až platí obojí najednou:
 
 Obě čísla patří do ovládacího souboru a půjdou změnit. Nula sekund by znamenala, že se čas navíc nečeká. Výchozí nula není.
 
-## Doba kamenná, zákazy
+## Výroba podle doby
 
-Potvrzené zákazy. Nesmí se craftit ani používat:
+Potvrzeno při zkoušce. Jde o výrobu i použití té věci.
 
-- železné nástroje, zbraně a brnění
-- zlaté nástroje, zbraně a brnění
-- diamantové nástroje, zbraně a brnění
-- netheritové nástroje, zbraně a brnění
-- bronzové nástroje
-- měděné nástroje
-- sedla
-- pece
-- cokoliv z redstonu
-
-Povolené výjimky:
-
-- ohniště (campfire)
-- křesadlo
-- trident, když ho hráč najde (smí ho použít)
-
-Když hráč pec v době kamenné otevře (pec, tavicí pec, udírna), v okně se mění citlivost myši a klik dopadne jinam. Nestačí jen chat. Ohniště se neblokuje. Minihra je hotová.
+- Doba kamenná: nic z bronzu, mědi ani železa. Tedy ani vozík, železné dveře, bleskosvod, měděné slitky a měděné bloky.
+- Doba bronzová: měď a bronz jdou. Z železa pořád nejde nic, včetně vozíku a železných dveří. Redstone nejde.
+- Doba železná: železo, měď i bronz jdou. Redstone pořád nejde.
+- Středověk: redstone jde. Zatím ho nikdo nemá, odemkne se až vesnicí, každému zvlášť.
+- Zlato, diamant a netherit jdou jen ve středověku. V ostatních dobách ne.
+- Z kůže se dá vyrábět v každé době.
+- Tlačítka jdou mačkat i pokládat v každý den.
+- Křesadlo, ohniště a nalezený trident zůstávají povolené.
+- Pec v době kamenné: minihra s myší (citlivost a klik vedle). Ohniště se neblokuje.
+- Sedlo v době kamenné nejde použít.
 
 Obecné pravidlo od Františka: pokročilejší věci se necraftí ani nepoužívají. Konkrétní věc, která není v seznamu zákazů ani výjimek, je `NEVYPLNĚNO`. Před přidáním dalšího zákazu se zeptej. Nezařazuj tam sám lodě, luky, štíty a podobně.
 
@@ -75,14 +81,21 @@ Obecné pravidlo od Františka: pokročilejší věci se necraftí ani nepouží
 Potvrzeno:
 
 - Bronzová zbroj je v boji jako železná.
-- Každá zbroj hráče v boji trochu zpomaluje. Bronzová skoro vůbec.
-- Surovin na jinou zbroj má být tak málo, že je velmi těžké ji získat. Mají se omezit žíly rud.
+- Každá zbroj hráče v boji trochu zpomaluje. Bronzová skoro vůbec. Diamantová asi jako železná. Přesná čísla při kódu, vše v ovládacím souboru.
+- Z bronzu: nástroje, meč, celá zbroj, blok a malý lehký štít.
+- Výroba: vlastní tavící pec (ne obyčejná pec). Přesný vzhled a okno je `NEVYPLNĚNO`.
+- 1 bronzový slitek = 4 měď + 1 cín.
+- Ruda cín v kameni jako železo, jiná barva. Četnost cínu přibližně jako měď (při celkově snížených rudech).
+- Výskyt žil vs vanilla: diamant ~5 %, zlato ~30 %, železo ~40 %.
+- Velikost žíly: diamant nejčastěji 1, občas 2, max 3. Zlato a železo jako vanilla.
+- Celé diamantové brnění má být skoro nemožné.
+- Všechny důležité herní hodnoty patří do ovládacího souboru.
 
-`NEVYPLNĚNO` — zeptej se před laděním rud a bronzu:
+`NEVYPLNĚNO` — zeptej se před kódem bronzu:
 
-- o kolik která zbroj zpomaluje
-- maximální velikost žíly a které rudy
-- jestli omezení udělá předgenerování světa (nápad s nástrojem Chunky a výměnou rud) nebo jiná mapa. Obojí je jen nápad, ne vybrané řešení.
+- jak přesně vypadá a funguje tavící pec
+- přesná čísla zpomalení zbroje
+- přesné vlastnosti malého lehkého štítu
 
 ## Mapa, roh a bitva
 
@@ -135,8 +148,6 @@ Potvrzeno:
 
 `NEVYPLNĚNO` — zeptej se až u daného systému:
 
-- jak se bronz vyrábí (pec, poměr mědi a cínu)
-- kde a jak často se generuje cín
 - jak vypadají šablony budov a kdo je přidává
 - co přesně znamená obsadit vesnici
 - jak je pokladnice chráněná

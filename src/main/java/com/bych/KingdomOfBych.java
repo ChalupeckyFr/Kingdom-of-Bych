@@ -2,6 +2,7 @@ package com.bych;
 
 import com.bych.command.BychCommands;
 import com.bych.config.BychConfig;
+import com.bych.epoch.StoneAgeRestrictions;
 import com.bych.game.Lobby;
 import com.bych.sleep.SleepTracker;
 
@@ -28,6 +29,7 @@ public class KingdomOfBych implements ModInitializer {
 		LOGGER.info(config.summary().getString());
 
 		BychCommands.register();
+		StoneAgeRestrictions.register();
 		Lobby.register();
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> BychRuntime.get().applySleepRule(server));
