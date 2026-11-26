@@ -12,8 +12,9 @@ Projekt má vlastní git ve složce hry. Každý agent pracuje na vlastní větv
 | --- | --- | --- |
 | Minihra s pecí | `furnace` | `src/main/java/com/bych/epoch` a klientská složka, jen pec |
 | Lobby bez autobusu | `lobby` | `src/main/java/com/bych/game` |
+| Odehraný čas / doby | `playtime` | `epoch`, `command`, `config`, runtime; pec jen napojení na epochu hráče |
 
-Epochy, oznámení, playtime, bronz, vesnice a autobus se nezačínají, dokud František nevybere návrh níž. Tyhle úkoly sahají do stejných hodin hry.
+Epochy podle dne už neplatí. Běží úkol playtime (odehraný čas). Bronz jako předmět, vesnice a autobus čekají na doplnění `NEVYPLNĚNO`.
 
 ## Hotovo
 
@@ -24,21 +25,18 @@ Epochy, oznámení, playtime, bronz, vesnice a autobus se nezačínají, dokud F
 - [x] Příkazy do skupin: `/kbych time …`, `/kbych test reset`, `/kbych config reload` (staré krátké tvary zůstaly)
 - [x] Lobby: world border asi 32 bloků od středu a `/kbych game depart` (hláška Odlet!, uvolnění borderu, den 1). Let autobusu ještě není.
 - [x] Minihra s pecí v době kamenné: citlivost myši a klik vedle; ohniště neblokované
+- [x] Nové hodiny: odehraný čas per hráč (větev `playtime`), config 10 / +20 min, setage, status, přechod nápis+zvuk
 
 ## Připraveno, smí se začít
 
-Nic, dokud František neřekne minuty a odměnu u odehraného času (viz Epochy v `decisions.md`).
-
-Pořadí po odpovědi:
-
-1. Nové hodiny (odehraný čas + achievementy)
-2. Loading screen + hezčí oznámení
+1. Loading screen + hezčí oznámení (obrázky František nahraje do `textures/loading/`)
+2. Airdropy / padáky později
 
 ## Návrhy, nezačínat v kódu
 
 ### Oznámení doby
 
-Vybráno **B** (odehraný čas + achievementy). Zapsáno v `decisions.md`. Minuty a odměna ještě **čeká**.
+Vybráno **B**. Minuty 10 / +20 v configu. Airdrop odměny a levely achievementů čekají na padáky.
 
 ### Bronz jako věc ve hře
 

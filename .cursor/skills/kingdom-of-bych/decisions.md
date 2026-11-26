@@ -30,25 +30,40 @@ Technické preference použij. Když v praxi nedávají smysl, zeptej se, jestli
 
 Potvrzeno:
 
-- Příkazy jsou ve skupinách: `/kbych time status`, `/kbych time setday <den>`, `/kbych time night`, `/kbych test reset`, `/kbych config reload`, `/kbych game depart`.
-- Staré krátké tvary (`/kbych status`, `setday`, `night`, `reset`, `reload`) zůstávají kvůli command blokům.
+- Příkazy jsou ve skupinách: `/kbych time status`, `/kbych time setday <den>`, `/kbych time setage <stone|bronze|iron|medieval>`, `/kbych time night`, `/kbych test reset`, `/kbych config reload`, `/kbych game depart`.
+- `setage` nastaví dobu hráči (stone / bronze / iron / medieval). `setday` zůstává kvůli command blokům: 1 = kámen, 2–4 = bronz, od 5 = železo; posune i den světa.
+- Když příkaz spustí command blok (bez hráče), `setday` / `setage` platí **všem online**. Když ho napíše hráč, jen jemu.
+- `night` nechává noc aktuálního dne světa. Na dobu nemá vliv; zůstává pro případné pozdější použití.
+- Staré krátké tvary (`/kbych status`, `setday`, `setage`, `night`, `reset`, `reload`) zůstávají kvůli command blokům.
 
 ## Epochy
 
 Potvrzeno:
 
 - Doby se přepínají podle **odehraného času** a **achievementů**, ne podle dne světa. (Staré dny 1 / 2–4 / od 5 už neplatí.)
-- Achievement při přechodu má zvuk a odměnu.
+- Výchozí minuty: bronz po 10 minutách odehraného času, železo po dalších 20 minutách. Klíče v configu: `epoch.bronze-after-minutes`, `epoch.iron-after-minutes`.
+- Každý hráč má **vlastní** odehraný čas. Počítá a ukládá ho **server** v datech světa (u každého hráče zvlášť).
+- Do minut se počítá čas, kdy je hráč online ve světě, včetně AFK.
+- Zkušební `/kbych time setage` nastaví dobu hráči (stone / bronze / iron / medieval). Playtime sám středověk neodemyká.
+- Achievementy: později jich bude víc a budou mít levely. Finální odměna je **airdrop** z náhodného loot poolu. Loot pool, padáky a levely domyslíme až u padáků.
+- Dočasná odměna za přechod doby (než budou airdropy): jen velký nápis + zvuk.
+- Po železné době se **neukazuje počet dní**. Až hráč vstoupí do středověku, ukáže se, **jak dlouho mu trvalo se tam dostat** — v herních dnech Minecraftu.
 - Středověk není světová epocha. Patří jednomu hráči a ve fázi 1 se nepočítá.
-- Ve fázi 1 čas běží od založení světa. Výpočet má být na jednom místě. Až bude autobus, stejné místo se přepne na odlet. Do té doby to nepřepínat.
+- Ve fázi 1 čas běží od založení světa / od odletu (až bude autobus). Výpočet má být na jednom místě. Až bude autobus, stejné místo se přepne na odlet. Do té doby to nepřepínat.
 - Při přechodu na další dobu je vždy vlastní loading screen, aby se svět stihl načíst a hra se nezasekla. Platí i pro odemčení středověku jednomu hráči. Když to pro jednoho hráče technicky nepůjde, zeptej se, než to nahradíš jinak.
 - Pořadí práce: nejdřív nové hodiny (odehraný čas), potom loading screen a hezčí oznámení.
+- Obrázky František nahraje jako PNG — viz oddíl Obrázky.
 
-`NEVYPLNĚNO` — zeptej se před kódem hodin:
+## Obrázky
 
-- po kolika minutách odehraného času přijde bronz a po kolika železo (návrh byl asi 10 a +20, nepotvrzeno)
-- co přesně je odměna u achievementu
-- jestli se odehraný čas počítá jen když je hráč ve světě / online, nebo i jinak
+Potvrzeno:
+
+- Jedna složka, soubory **`.png`** (ne JPG).
+- Cesta: `src/main/resources/assets/kingdom-of-bych/textures/`
+- `loading/loading_stone.png`, `loading_bronze.png`, `loading_iron.png`, `loading_medieval.png`
+- `advancements/achievement_bronze.png`, `achievement_iron.png` (další později `achievement_3.png` …)
+- `block/` např. `tin_ore.png`, `item/` např. `bronze_ingot.png`
+- Chybějící soubor = dočasný vzhled. Nemusíš nahrát všechno najednou.
 
 ## Spánek
 

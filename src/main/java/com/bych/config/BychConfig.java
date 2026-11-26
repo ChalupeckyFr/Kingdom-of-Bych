@@ -38,15 +38,11 @@ public final class BychConfig {
 			# Má to zabránit tomu, že si hráč jen lehne a hned přeskočí celou noc.
 			sleep.required-seconds=20
 
-			# Poslední den doby kamenné. Den 1 je první den od založení světa.
-			epoch.stone-age-last-day=1
+			# Po kolika minutách odehraného času (online ve světě, včetně AFK) přijde doba bronzová.
+			epoch.bronze-after-minutes=10
 
-			# První a poslední den doby bronzové, oba dny se počítají.
-			epoch.bronze-age-first-day=2
-			epoch.bronze-age-last-day=4
-
-			# Od kterého dne trvale běží doba železná. Jakmile ten den nastane, už se nevrací bronz.
-			epoch.iron-age-first-day=5
+			# Kolik dalších minut po začátku bronzu uplyne do doby železné.
+			epoch.iron-after-minutes=20
 
 			# Nejvyšší počet vojáků u jednoho vlajkonoše.
 			# Oddíly ještě nejsou. Číslo se jen uloží, aby o něj panel nepřišel.
@@ -55,29 +51,23 @@ public final class BychConfig {
 
 	private final int requiredPlayerPercent;
 	private final int requiredSleepSeconds;
-	private final int stoneAgeLastDay;
-	private final int bronzeAgeFirstDay;
-	private final int bronzeAgeLastDay;
-	private final int ironAgeFirstDay;
+	private final int bronzeAfterMinutes;
+	private final int ironAfterMinutes;
 	private final int maxSoldiers;
 	private final List<String> warnings;
 
 	private BychConfig(
 			int requiredPlayerPercent,
 			int requiredSleepSeconds,
-			int stoneAgeLastDay,
-			int bronzeAgeFirstDay,
-			int bronzeAgeLastDay,
-			int ironAgeFirstDay,
+			int bronzeAfterMinutes,
+			int ironAfterMinutes,
 			int maxSoldiers,
 			List<String> warnings
 	) {
 		this.requiredPlayerPercent = requiredPlayerPercent;
 		this.requiredSleepSeconds = requiredSleepSeconds;
-		this.stoneAgeLastDay = stoneAgeLastDay;
-		this.bronzeAgeFirstDay = bronzeAgeFirstDay;
-		this.bronzeAgeLastDay = bronzeAgeLastDay;
-		this.ironAgeFirstDay = ironAgeFirstDay;
+		this.bronzeAfterMinutes = bronzeAfterMinutes;
+		this.ironAfterMinutes = ironAfterMinutes;
 		this.maxSoldiers = maxSoldiers;
 		this.warnings = List.copyOf(warnings);
 	}
@@ -105,10 +95,9 @@ public final class BychConfig {
 			properties.load(new StringReader(text));
 			return fromProperties(properties);
 		} catch (IOException exception) {
-			BychConfig fallback = confirmedDefaults(List.of(
+			return confirmedDefaults(List.of(
 					"Soubor s nastavením nešel přečíst. Použil jsem výchozí hodnoty."
 			));
-			return fallback;
 		}
 	}
 
@@ -120,20 +109,12 @@ public final class BychConfig {
 		return this.requiredSleepSeconds;
 	}
 
-	public int stoneAgeLastDay() {
-		return this.stoneAgeLastDay;
+	public int bronzeAfterMinutes() {
+		return this.bronzeAfterMinutes;
 	}
 
-	public int bronzeAgeFirstDay() {
-		return this.bronzeAgeFirstDay;
-	}
-
-	public int bronzeAgeLastDay() {
-		return this.bronzeAgeLastDay;
-	}
-
-	public int ironAgeFirstDay() {
-		return this.ironAgeFirstDay;
+	public int ironAfterMinutes() {
+		return this.ironAfterMinutes;
 	}
 
 	public int maxSoldiers() {
@@ -148,10 +129,9 @@ public final class BychConfig {
 	public Component summary() {
 		String text = "Nastavení načteno. Spánek: " + this.requiredPlayerPercent
 				+ " % hráčů a " + this.requiredSleepSeconds
-				+ " sekund. Kámen do dne " + this.stoneAgeLastDay
-				+ ", bronz od " + this.bronzeAgeFirstDay + " do " + this.bronzeAgeLastDay
-				+ ", železo od " + this.ironAgeFirstDay
-				+ ". Vojáků v oddílu nejvýš " + this.maxSoldiers + ".";
+				+ " sekund. Bronz po " + this.bronzeAfterMinutes
+				+ " min odehraného času, železo po dalších " + this.ironAfterMinutes
+				+ " min. Vojáků v oddílu nejvýš " + this.maxSoldiers + ".";
 		if (!this.warnings.isEmpty()) {
 			text = text + " " + String.join(" ", this.warnings);
 		}
@@ -162,16 +142,14 @@ public final class BychConfig {
 		List<String> warnings = new ArrayList<>();
 		int percent = readInt(properties, "sleep.required-player-percent", 50, 0, 100, warnings);
 		int seconds = readInt(properties, "sleep.required-seconds", 20, 0, 24 * 60 * 60, warnings);
-		int stoneLast = readInt(properties, "epoch.stone-age-last-day", 1, 1, 100000, warnings);
-		int bronzeFirst = readInt(properties, "epoch.bronze-age-first-day", 2, 1, 100000, warnings);
-		int bronzeLast = readInt(properties, "epoch.bronze-age-last-day", 4, 1, 100000, warnings);
-		int ironFirst = readInt(properties, "epoch.iron-age-first-day", 5, 1, 100000, warnings);
+		int bronzeMinutes = readInt(properties, "epoch.bronze-after-minutes", 10, 0, 24 * 60, warnings);
+		int ironMinutes = readInt(properties, "epoch.iron-after-minutes", 20, 0, 24 * 60, warnings);
 		int soldiers = readInt(properties, "army.max-soldiers", 9, 0, 9, warnings);
-		return new BychConfig(percent, seconds, stoneLast, bronzeFirst, bronzeLast, ironFirst, soldiers, warnings);
+		return new BychConfig(percent, seconds, bronzeMinutes, ironMinutes, soldiers, warnings);
 	}
 
 	private static BychConfig confirmedDefaults(List<String> warnings) {
-		return new BychConfig(50, 20, 1, 2, 4, 5, 9, warnings);
+		return new BychConfig(50, 20, 10, 20, 9, warnings);
 	}
 
 	/**

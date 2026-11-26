@@ -6,7 +6,6 @@ import java.util.Locale;
 import com.bych.BychRuntime;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
@@ -58,16 +57,15 @@ public final class CraftPolicy {
 		return "";
 	}
 
-	/** Středověk je na hráče. Zatím ho nikdo nemá, vesnice ještě nejsou. */
+	/** Středověk je na hráče. Vesnice ještě neodemykají; setage ho umí zapnout na zkoušku. */
 	public static boolean hasMedieval(ServerPlayer player) {
-		return false;
+		return PlaytimeStore.get(player.getServer()).of(player.getUUID()).medieval();
 	}
 
 	public static Epoch epochOf(ServerPlayer player) {
-		ServerLevel overworld = player.getServer().overworld();
 		BychRuntime runtime = BychRuntime.get();
-		int day = runtime.clock().currentDay(overworld);
-		return runtime.clock().epochForDay(day, runtime.config());
+		PlaytimeStore store = PlaytimeStore.get(player.getServer());
+		return runtime.clock().epochOf(player, store, runtime.config());
 	}
 
 	private static boolean isAlwaysAllowed(ItemStack stack) {

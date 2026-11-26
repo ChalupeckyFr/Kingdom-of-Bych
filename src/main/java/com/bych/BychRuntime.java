@@ -3,6 +3,7 @@ package com.bych;
 import com.bych.config.BychConfig;
 import com.bych.epoch.EpochAnnouncer;
 import com.bych.epoch.EpochClock;
+import com.bych.epoch.EpochSync;
 import com.bych.epoch.StoneAgeRestrictions;
 import com.bych.sleep.SleepGate;
 import com.bych.sleep.SleepTracker;
@@ -60,6 +61,7 @@ public final class BychRuntime {
 		for (ServerLevel level : server.getAllLevels()) {
 			SleepGate.applyPercentRule(level, percent);
 		}
+		EpochSync.ensureObjective(server);
 		KingdomOfBych.LOGGER.info("Pravidlo spánku nastaveno na {} procent hráčů.", percent);
 	}
 

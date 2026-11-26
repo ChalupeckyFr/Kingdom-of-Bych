@@ -2,6 +2,8 @@ package com.bych.client.furnace;
 
 import com.bych.BychRuntime;
 import com.bych.config.BychConfig;
+import com.bych.epoch.Epoch;
+import com.bych.epoch.EpochSync;
 import com.bych.epoch.StoneAgeFurnace;
 
 import net.minecraft.client.Minecraft;
@@ -74,10 +76,11 @@ public final class FurnaceMouseChaos {
 		if (!(minecraft.screen instanceof AbstractFurnaceScreen<?>)) {
 			return false;
 		}
-		if (minecraft.level == null) {
+		if (minecraft.level == null || minecraft.player == null) {
 			return false;
 		}
-		return StoneAgeFurnace.shouldChaosMouse(minecraft.level.getDayTime(), config());
+		Epoch epoch = EpochSync.readClientEpoch(minecraft.level.getScoreboard(), minecraft.player);
+		return StoneAgeFurnace.shouldChaosMouse(epoch);
 	}
 
 	private static void activate(Minecraft minecraft) {

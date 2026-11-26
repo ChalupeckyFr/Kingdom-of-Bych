@@ -13,7 +13,7 @@ import net.minecraft.world.level.border.WorldBorder;
 
 /**
  * Lobby na začátku hry: malý world border kolem spawnu.
- * Odlet zatím jen ohlásí a nastaví den 1. Let autobusu přijde později.
+ * Odlet zatím jen ohlásí, uvolní border a nastaví den světa 1 (ne dobu hráče). Let autobusu přijde později.
  */
 public final class Lobby {
 	/** Poloměr lobby ve blocích od středu. Průměr world borderu je dvojnásobek. */
@@ -62,8 +62,8 @@ public final class Lobby {
 		liftBorder(overworld);
 		departed = true;
 
+		// Den světa 1 jen pro ráno/noc. Doba hráče běží z playtime, tady se nemění.
 		BychRuntime.get().clock().applyDay(overworld, 1);
-		BychRuntime.get().announcer().tellAfterSetDay(server);
 	}
 
 	/** Uvolní world border, ať hráči po odletu nejsou v kleci. */
